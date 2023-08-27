@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div id="brandname">
+                Machine Learning App Demo
+            </div>
+            <div id="project">
+                Crisis Identification and Emotion Prediction
+            </div>
+		
+        </div>
+    </header>
+
+    <p>Click on the button to choose an activity:</p>
+    <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks" onclick="openActivity(event, 'Crisis')">Crisis</button>
+        <button class="tablinks" onclick="openActivity(event, 'Emotion')">Emotion</button>
+    </div>
+
+    <div id="Crisis" class="tabcontent">
+        <form action="{{ url_for('predict') }}" method="POST">
+            <h2>Crisis Notification</h2>
+
+            <p>Please select your desired algorithmic model for crisis notification:</p>
+            <input type="radio" id="bert" name="model" value="BERT">
+            <label for="bert">BERT</label><br>
+            
+            <input type="radio" id="distilbert" name="model" value="DISTILBERT">
+            <label for="distilbert">DISTIL BERT 1</label><br>
+
+            <input type="radio" id="distilbert-reviews" name="model" value="DISTILBERT-REVIEWS">
+            <label for="distilbert-reviews">DISTIL BERT 2</label><br>
+            
+            <input type="radio" id="ernie" name="model" value="ERNIE">
+            <label for="ernie">ERNIE</label>
+
+            <p>Enter your message below:</p>
+            <textarea name="message" rows="4" cols="50"></textarea>
+            <br/>
+
+            <input type="submit" class="btn-info" value="Predict">
+		
+        </form>
+		
+    </div>
+
+    <div id="Emotion" class="tabcontent">
+        <h2>Emotion Prediction from Audio</h2>
+
+        <form action="{{ url_for('reveal') }}" method="POST" enctype="multipart/form-data">
+
+            <p>Please select your desired algorithmic model for emotion prediction:</p>
+            <input type="radio" id="logreg" name="model" value="LOGISTIC REGRESSION">
+            <label for="logreg">Logistic Regression</label><br>
+            
+            <input type="radio" id="multinb" name="model" value="MULTINOMIAL NB">
+            <label for="multinb">Multinomial Naive Bayes</label><br>
+
+            <input type="radio" id="randforest" name="model" value="RANDOM FOREST">
+            <label for="randforest">Random Forest</label><br><br>
+            
+
+            <label for="wav">Select an audio file (WAV):</label>
+            <input type="file" id="file" name="file" accept=".wav"><br><br>
+            <input type="submit" class="btn-info" value="Run Analysis">
+        </form>
+    </div>
+
+    <script>
+    function openActivity(evt, actName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        
+        tablinks = document.getElementsByClassName("tablinks");
+        
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        
+        document.getElementById(actName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    </script>
+
+</body>
+</html>

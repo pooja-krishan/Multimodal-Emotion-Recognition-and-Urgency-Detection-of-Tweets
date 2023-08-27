@@ -1,0 +1,26 @@
+{% extends "result.html" %}
+
+{% block title %}
+    Tweet Prediction
+{% endblock %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block project %}
+    Urgency Detector For Online Tweet
+{% endblock %}
+
+{% block content %}
+    <h1>Tweet from Current User:</h1>
+    <p> {{ message }} </p>
+    <h1>Classifier Type:</h1>
+    <p> {{ model }} </p>
+    <h1>Result:</h1>
+    {% if prediction == "LABEL_1" %}
+    <h2 style="color:red;">Urgent Message. Need Support.</h2>
+    {% elif prediction == "LABEL_0" %}
+    <h2 style="color:blue;">Non-urgent Message.</h2>
+    {% endif %}
+{% endblock%}
